@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理  -->
+
+<mapper namespace="com.java.mapper.MyRoleMapper">
+
+	<resultMap type="com.java.bean.MyRole" id="roleMap">
+		<result property="id" column="ID"/>
+		<result property="content" column="CONTENT"/>
+	</resultMap>
+	<!-- 根据id查询用户信息 -->
+	
+	<select id="getById" parameterType="java.lang.String" resultType="com.java.bean.MyRole">
+		SELECT * FROM MY_ROLE WHERE ID= #{id}
+	
+	</select>
+	
+	
+	 <!-- 查询所有 查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultMap）-->
+	<select id="getAll" parameterType="java.lang.String" resultMap="roleMap">
+		SELECT * FROM MY_ROLE
+	</select>
+	 
+	 
+	
+	<!-- 添加用户 -->
+
+	 <insert id="add" parameterType="com.java.bean.MyRole">
+		INSERT INTO MY_ROLE(ID,CONTENT) VALUES(#{id},#{content})
+	</insert>
+	
+	 
+	
+	<!-- 删除用户  -->
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM MY_ROLE WHERE ID=#{id}
+	</delete>
+	<!-- 修改用户
+	要求：传入的user对象中包括 id属性值
+	-->
+	<update id="update" parameterType="com.java.bean.MyRole">
+		UPDATE MY_ROLE SET CONTENT=#{content} WHERE ID=#{id}
+	</update>
+
+</mapper>
+
+

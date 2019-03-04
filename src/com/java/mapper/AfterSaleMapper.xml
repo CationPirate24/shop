@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理 
+	
+ -->
+<mapper namespace="com.java.mapper.AfterSaleMapper">
+	<resultMap type="com.java.bean.AfterSale"  id="afterSaleMap">
+		<result property="id" column="ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="goodsId" column="GOODS_ID"/>
+		<result property="describe" column="DESCRIBE"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="state" column="STATE"/>		
+	</resultMap>
+
+<!--	
+	<select id="getById" parameterType="java.lang.String" resultType="com.java.bean.MyUser">
+		SELECT * FROM MY_USER WHERE ID= #{id}
+	
+	</select>
+	
+	 <select id="getBySex" parameterType="java.lang.String" resultType="com.java.bean.MyUser">
+	 	SELECT * FROM MY_USER WHERE SEX=#{mySex}
+	 </select>-->
+	 
+	 <select id="getAll" parameterType="java.lang.String" resultMap="afterSaleMap">
+		SELECT * FROM AFTER_SALE WHERE STATE LIKE '%${value}%'
+	</select>
+	
+	<!-- 添加用户 
+
+	 <insert id="add" parameterType="com.java.bean.MyUser">
+		INSERT INTO MY_USER(ID,NAME,AGE,SEX,HOBBY,DEPT,DESCRIBE) VALUES(#{id},#{name},#{age},#{sex},#{hobby},#{dept},#{describe})
+	</insert>-->
+	
+	 <!--
+		如果使用ORACLE的序列赋值主键（主键为number类型）
+		在执行insert之前执行select 序列.nextval() from dual取出序列最大值，将值设置到user对象 的id属性
+	 -->
+	<!-- <insert id="add" parameterType="com.java.bean.MyUser">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select 序列.nextval() from dual
+		</selectKey>
+		
+		INSERT INTO MY_USER(ID,NAME,AGE,SEX,HOBBY,DEPT,DESCRIBE) VALUES(#{id},#{name},#{age},#{sex},#{hobby},#{dept},#{describe})
+	</insert> -->
+	
+	<!-- 删除用户 -->
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM AFTER_SALE WHERE ID=#{id}
+	</delete> 
+	<!-- 修改用户
+	要求：传入的user对象中包括 id属性值
+	
+	<update id="update" parameterType="com.java.bean.MyUser">
+		UPDATE MY_USER SET NAME=#{name},AGE=#{age},SEX=#{sex},HOBBY=#{hobby},DEPT=#{dept},DESCRIBE=#{describe} WHERE ID=#{id}
+	</update>
+	-->
+</mapper>

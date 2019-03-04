@@ -1,0 +1,58 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+		
+		<!-- 商品 的service -->
+		<bean id="goodsService" class="com.java.service.GoodsServiceImpl"/>
+		
+		<!-- 账户 -->
+		<bean id="myAccountService" class="com.java.service.MyAccountServiceImpl"/>
+		<!-- 码表 -->
+		<bean id="codeService" class="com.java.service.CodeServiceImpl"/>
+		<!-- 用户 -->
+		<bean id="myUserService" class="com.java.service.MyUserServiceImpl"/>
+		<!-- 角色 -->
+		<bean id="myRoleService" class="com.java.service.MyRoleServiceImpl"/>
+		<!-- 资源 -->
+		<bean id="myResourceService" class="com.java.service.MyResourceServiceImpl"/>
+		<!-- 账户角色 -->
+		<bean id="accountRoleService" class="com.java.service.AccountRoleServiceImpl"/>
+		<!-- 角色资源 -->
+		<bean id="roleResourceService" class="com.java.service.RoleResourceServiceImpl"/>
+		<!-- 系统设置 -->
+		<bean id="systemSzService" class="com.java.service.SystemSzServiceImpl"/>
+		<!-- 图片 -->
+		<bean id="pictureService" class="com.java.service.PictureServiceImpl"/>
+		<!-- 订单 -->
+		<bean id="buysService" class="com.java.service.BuysServiceImpl"/>
+		<!-- 售后 -->
+		<bean id="afterSaleService" class="com.java.service.AfterSaleServiceImpl"/>
+		<!-- 评论-->
+		<bean id="commentsService" class="com.java.service.CommentsServiceImpl"/>
+		<!--回复 -->
+		<bean id="replyService" class="com.java.service.ReplyServiceImpl"/>
+		<!-- 评论与回复 -->
+		<bean id="commentsAndReplyService" class="com.java.service.CommentsAndReplyServiceImpl"/>
+		<!-- 意见反馈 -->
+		<bean id="adviceService" class="com.java.service.AdviceServiceImpl"/>
+		
+		
+		<!-- 购物车 -->
+		<bean id="ShoppingCarService" class="com.java.service.ShoppingCarServiceImpl"/>
+		
+		<!-- 收货地址 -->
+		<bean id="addressService" class="com.java.service.AddressServiceImpl"/>
+		
+		
+</beans>

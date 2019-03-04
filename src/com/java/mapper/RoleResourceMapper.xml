@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理  -->
+
+<mapper namespace="com.java.mapper.RoleResourceMapper">
+
+	<resultMap type="com.java.bean.RoleResource" id="roleResourceMap">
+		<result property="id" column="ID"/>
+		<result property="roleId" column="ROLE_ID"/>
+		<result property="resourceId" column="RESOURCE_ID"/>
+	</resultMap>
+	
+	<select id="getById" parameterType="java.lang.String" resultType="com.java.bean.RoleResource">
+		SELECT * FROM ROLE_RESOURCE WHERE ID= #{id}
+	
+	</select>
+	
+	
+	 <!-- 查询所有 查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultMap）-->
+	<select id="getAll" parameterType="java.lang.String" resultMap="roleResourceMap">
+		SELECT * FROM ROLE_RESOURCE WHERE ROLE_ID LIKE '%${value}%'
+	</select>
+	 
+	 
+	
+	<!-- 添加用户 -->
+
+	 <insert id="add" parameterType="com.java.bean.RoleResource">
+		INSERT INTO ROLE_RESOURCE(ID,ROLE_ID,RESOURCE_ID) VALUES(#{id},#{roleId},#{resourceId})
+	</insert>
+	
+	 
+	
+	<!-- 删除用户  -->
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM ROLE_RESOURCE WHERE ID=#{id}
+	</delete>
+	<!-- 修改用户
+	要求：传入的user对象中包括 id属性值
+	-->
+	
+	<update id="update" parameterType="com.java.bean.RoleResource">
+		UPDATE ROLE_RESOURCE SET ROLE_ID=#{roleId},RESOURCE_ID=#{resourceId} WHERE ID=#{id}
+	</update>
+	
+</mapper>

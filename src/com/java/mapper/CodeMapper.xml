@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理 
+ -->
+<mapper namespace="com.java.mapper.CodeMapper">
+
+	<resultMap type="com.java.bean.Code" id="codeMap">
+		<result property="id" column="ID"/>
+		<result property="name" column="CODE_KEY"/>
+		<result property="age" column="CODE_VALUE"/>
+		<result property="sex" column="CODE_TYPE"/>
+		
+	</resultMap>
+	<!-- 根据id查询用户信息 -->
+	<!-- 
+		id：唯一标识 
+		#{}：表示 一个占位符，如果#{}中传入简单类型的参数，#{}中的名称随意
+		parameterType：输入 参数的类型，通过#{}接收parameterType输入 的参数
+		resultType：输出结果 类型，不管返回是多条还是单条，指定单条记录映射的pojo(bean)类型
+	 -->
+	<select id="getById" parameterType="java.lang.String" resultType="com.java.bean.Code">
+		SELECT * FROM CODE_JSP WHERE ID= #{id}
+	
+	</select>
+	
+	<!-- 根据用户名称查询用户信息，可能返回多条
+	${}：表示sql的拼接，通过${}接收参数，将参数的内容不加任何修饰拼接在sql中。
+	
+	两种传值的区别：
+	区别一：
+	#将传入的数据如果是字符串类型，会自动加引号
+	$不加任何修饰
+	
+	区别二：
+	#能够防止sql注入
+	$不会防止sql注入
+	
+	最佳体验：
+	1.$一般用来传入表名
+	2.能用#来完成的功能，就尽量不用$来完成
+	 -->
+	 <!-- 查询所有 查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultMap）-->
+	<select id="getAll" parameterType="java.lang.String" resultMap="codeMap">
+		SELECT * FROM CODE_JSP WHERE CODE_VALUE LIKE '%${value}%'
+	</select>
+	
+	 <!-- 按照性别查找 返回的是多条记录，可以使用 resultMap，也可以使用resultType
+	  		查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultType）
+	 
+	 <select id="getBySex" parameterType="java.lang.String" resultType="com.java.bean.MyUser">
+	 	SELECT * FROM CODE_JSP WHERE SEX=#{mySex}
+	 </select>
+	 -->
+	 
+	
+	<!-- 添加用户 -->
+
+	 <insert id="add" parameterType="com.java.bean.Code">
+		INSERT INTO CODE_JSP(ID,CODE_KEY,CODE_VALUE,CODE_TYPE) VALUES(#{id},#{codeKey},#{codeValue},#{codeType})
+	</insert>
+	
+	 <!--
+		如果使用ORACLE的序列赋值主键（主键为number类型）
+		在执行insert之前执行select 序列.nextval() from dual取出序列最大值，将值设置到user对象 的id属性
+	 -->
+	<!-- <insert id="add" parameterType="com.java.bean.MyUser">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select 序列.nextval() from dual
+		</selectKey>
+		
+		INSERT INTO MY_USER(ID,NAME,AGE,SEX,HOBBY,DEPT,DESCRIBE) VALUES(#{id},#{name},#{age},#{sex},#{hobby},#{dept},#{describe})
+	</insert> -->
+	
+	<!-- 删除用户  -->
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM CODE_JSP WHERE ID=#{id}
+	</delete>
+	<!-- 修改用户
+	要求：传入的user对象中包括 id属性值
+	-->
+	<update id="update" parameterType="com.java.bean.Code">
+		UPDATE CODE_JSP SET CODE_KEY=#{codeKey},CODE_VALUE=#{codeValue},CODE_TYPE=#{codeType} WHERE ID=#{id}
+	</update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

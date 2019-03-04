@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理  -->
+
+<mapper namespace="com.java.mapper.AdviceMapper">
+
+	<resultMap type="com.java.bean.Advice" id="adviceMap">
+		<result property="id" column="ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="comment" column="COMMENT"/>
+	</resultMap>
+	
+	<select id="getById" parameterType="java.lang.String" resultType="com.java.bean.Advice">
+		SELECT * FROM ADVICE WHERE ID= #{id}
+	
+	</select>
+	
+	
+	 <!-- 查询所有 查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultMap）-->
+	<select id="getAll" parameterType="java.lang.String" resultMap="adviceMap">
+		SELECT * FROM ADVICE
+	</select>
+	 
+	 
+	
+	<!-- 添加用户 -->
+
+	 <insert id="add" parameterType="com.java.bean.Advice">
+		INSERT INTO ADVICE(ID,USER_ID,COMMENTS) VALUES(#{id},#{userId},#{comments})
+	</insert>
+	
+	 
+	
+	<!-- 删除用户  -->
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM ADVICE WHERE ID=#{id}
+	</delete>
+	<!-- 修改用户
+	要求：传入的user对象中包括 id属性值
+	-->
+	<!--
+	<update id="update" parameterType="com.java.bean.MyUser">
+		UPDATE MY_USER SET NAME=#{name},AGE=#{age},SEX=#{sex},HOBBY=#{hobby},DEPT=#{dept},DESCRIBE=#{describe} WHERE ID=#{id}
+	</update>
+	-->
+</mapper>

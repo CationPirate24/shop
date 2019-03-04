@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理  -->
+
+<mapper namespace="com.java.mapper.SystemSzMapper">
+
+	<resultMap type="com.java.bean.SystemSz" id="systemSzMap">
+		<result property="id" column="ID"/>
+		<result property="websiteName" column="WEBSITE_NAME"/>
+		<result property="keyWord" column="KEY_WORD"/>
+		<result property="describe" column="DESCRIBE"/>
+		<result property="baNum" column="BA_NUM"/>
+		<result property="maxNum" column="MAX_NUM"/>
+		<result property="postAccount" column="POST_ACCOUNT"/>
+		<result property="postKey" column="POST_KEY"/>
+		<result property="postsAddress" column="POSTS_ADDRESS"/>
+	</resultMap>
+	<!--
+	 根据id查询用户信息 
+	
+	<select id="getById" parameterType="java.lang.String" resultType="com.java.bean.MyUser">
+		SELECT * FROM MY_USER WHERE ID= #{id}
+	
+	</select>
+	-->
+	
+	 <!-- 查询所有 查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultMap）-->
+	<select id="getAll" parameterType="java.lang.String" resultMap="systemSzMap">
+		SELECT * FROM SYSTEM_SZ
+	</select>
+	
+	 <!-- 
+	 	按照性别查找 返回的是多条记录，可以使用 resultMap，也可以使用resultType
+	  	查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultType）
+	 
+	 <select id="getBySex" parameterType="java.lang.String" resultType="com.java.bean.MyUser">
+	 	SELECT * FROM MY_USER WHERE SEX=#{mySex}
+	 </select>
+	 -->
+	 
+	
+	 
+	<!--添加用户-->
+
+	 <insert id="add" parameterType="com.java.bean.SystemSz">
+		INSERT INTO SYSTEM_SZ(ID,WEBSITE_NAME,KEY_WORD,DESCRIBE,BA_NUM,MAX_NUM,POST_ACCOUNT,POST_KEY,POST_ADDRESS) VALUES(#{id},#{websiteName},#{keyWord},#{describe},#{baNum},#{maxNum},#{postAccount},#{postKey},#{postsAddress})
+	</insert>
+	
+	 
+	
+	<!-- 
+	删除用户  
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM MY_USER WHERE ID=#{id}
+	</delete>
+	-->
+	
+	<!-- 修改用户
+	要求：传入的user对象中包括 id属性值
+	-->
+	<update id="update" parameterType="com.java.bean.SystemSz">
+		UPDATE SYSTEM_SZ SET WEBSITE_NAME=#{websiteName},KEY_WORD=#{keyWord},DESCRIBE=#{describe},BA_NUM=#{baNum},MAX_NUM=#{maxNum},POST_ACCOUNT=#{postAccount},POST_KEY=#{postKey},POSTS_ADDRESS=#{postsAddress} WHERE ID=#{id}
+		
+	</update>
+
+</mapper>

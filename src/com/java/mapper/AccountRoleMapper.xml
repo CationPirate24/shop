@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理  -->
+
+<mapper namespace="com.java.mapper.AccountRoleMapper">
+
+	<resultMap type="com.java.bean.AccountRole" id="accountRoleMap">
+		<result property="id" column="ID"/>
+		<result property="accountId" column="ACCOUNT_ID"/>
+		<result property="roleId" column="ROLE_ID"/>
+	</resultMap>
+	<!-- 根据id查询用户信息 -->
+	
+	<select id="getById" parameterType="java.lang.String" resultType="com.java.bean.AccountRole">
+		SELECT * FROM ACCOUNT_ROLE WHERE ID= #{id}
+	
+	</select>
+	
+	
+	 <!-- 查询所有 查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultMap）-->
+	<select id="getAll" parameterType="java.lang.String" resultMap="accountRoleMap">
+		SELECT * FROM ACCOUNT_ROLE WHERE ACCOUNT_ID LIKE '%${value}%'
+	</select>
+	 
+	 
+	
+	<!-- 添加用户 -->
+
+	 <insert id="add" parameterType="com.java.bean.AccountRole">
+		INSERT INTO ACCOUNT_ROLE(ID,ACCOUNT_ID,ROLE_ID) VALUES(#{id},#{accountId},#{roleId})
+	</insert>
+	
+	 
+	
+	<!-- 删除用户  -->
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM ACCOUNT_ROLE WHERE ACCOUNT_ID=#{accountId}
+	</delete>
+	<!-- 修改用户
+	要求：传入的user对象中包括 id属性值
+	-->
+	<update id="update" parameterType="com.java.bean.AccountRole">
+		UPDATE ACCOUNT_ROLE SET ACCOUNT_ID=#{accountId},ROLE_ID=#{roleId} WHERE ID=#{id}
+	</update>
+
+</mapper>
+
+

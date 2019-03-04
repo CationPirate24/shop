@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理 
+	
+ -->
+<mapper namespace="com.java.mapper.ShoppingCarMapper">
+	<resultMap type="com.java.bean.ShoppingCar"  id="shopMap">
+		<result property="id" column="ID"/>
+		<result property="goodsId" column="GOODS_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="nums" column="NUMS"/>
+		<result property="createDate" column="CREATE_DATE"/>		
+	</resultMap>
+	<select id="getByUserId" parameterType="java.lang.String" resultMap="shopMap">
+		SELECT * FROM SHOPPING_CAR WHERE USER_ID =#{userId}
+	</select>
+	<insert id="add" parameterType="com.java.bean.ShoppingCar">
+		INSERT INTO SHOPPING_CAR VALUES(#{id},#{goodsId},#{userId},#{nums},#{createDate},#{price})
+	</insert>
+	
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE SHOPPING_CAR WHERE ID=#{id}
+	</delete>
+	
+	<select id="getByUserIdAndGoodsId" parameterType="java.lang.String" resultMap="shopMap">
+		SELECT * FROM SHOPPING_CAR WHERE USER_ID =#{userId} AND GOODS_ID=#{goodsId}
+	</select>
+	</mapper>
+	

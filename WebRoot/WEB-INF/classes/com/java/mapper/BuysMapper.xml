@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理 
+	
+ -->
+<mapper namespace="com.java.mapper.BuysMapper">
+	<resultMap type="com.java.bean.Buys"  id="buysMap">
+		<result property="id" column="ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="goodsId" column="GOODS_ID"/>
+		<result property="nums" column="NUMS"/>
+		<result property="createTime" column="CREATE_TIME"/>
+		<result property="state" column="STATE"/>
+	</resultMap>
+
+<!--	
+	<select id="getById" parameterType="java.lang.String" resultType="com.java.bean.MyUser">
+		SELECT * FROM MY_USER WHERE ID= #{id}
+	
+	</select>
+	
+	
+	<select id="getAll" parameterType="java.lang.String" resultMap="buysMap">
+		SELECT * FROM MY_USER WHERE NAME LIKE '%${value}%'
+	</select>
+	
+	 
+	 <select id="getBySex" parameterType="java.lang.String" resultType="com.java.bean.MyUser">
+	 	SELECT * FROM MY_USER WHERE SEX=#{mySex}
+	 </select>-->
+	 
+	 
+	
+	
+ 	<insert id="add" parameterType="com.java.bean.Buys">
+		INSERT INTO BUYS(ID,USER_ID,GOODS_ID,NUMS,CREATE_TIME,STATE) VALUES(#{id},#{userId},#{goodsId},#{nums},#{createTime},#{state})
+	</insert>
+
+	 <!--
+		如果使用ORACLE的序列赋值主键（主键为number类型）
+		在执行insert之前执行select 序列.nextval() from dual取出序列最大值，将值设置到user对象 的id属性
+	 -->
+	<!-- <insert id="add" parameterType="com.java.bean.MyUser">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select 序列.nextval() from dual
+		</selectKey>
+		
+		INSERT INTO MY_USER(ID,NAME,AGE,SEX,HOBBY,DEPT,DESCRIBE) VALUES(#{id},#{name},#{age},#{sex},#{hobby},#{dept},#{describe})
+	</insert> -->
+	
+	<!-- 删除用户 -->
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM BUYS WHERE ID=#{id}
+	</delete> 
+	<!-- 修改用户
+	-->
+	
+	<update id="update" parameterType="com.java.bean.Buys">
+		UPDATE BUYS SET STATE=#{state} WHERE ID=#{id}
+	</update>
+	
+	<!-- 查询订单 -->
+	<select id="selectPay" parameterType="String" resultMap="buysMap">
+		SELECT * FROM BUYS WHERE STATE LIKE '%${value}%'
+	</select>
+	<select id="getByUserIdAndState" parameterType="String" resultMap="buysMap">
+		SELECT * FROM BUYS WHERE STATE LIKE '%${state}%' AND USER_ID = #{userId}
+	</select>
+	
+	<select id="getByUserIdAndStateAndGoodsId" parameterType="String" resultType="com.java.bean.Buys">
+		SELECT * FROM BUYS WHERE USER_ID = #{userId} AND STATE=#{state} AND GOODS_ID=#{goodsId}
+	</select>
+</mapper>

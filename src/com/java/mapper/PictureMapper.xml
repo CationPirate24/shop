@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace命名空间，为了对sql语句进行隔离，方便管理  -->
+
+<mapper namespace="com.java.mapper.PictureMapper">
+
+	<resultMap type="com.java.bean.Picture" id="pictureMap">
+		<result property="id" column="ID"/>
+		<result property="goodsId" column="GOODS_ID"/>
+		<result property="doPath" column="DO_PATH"/>
+		<result property="goodsName" column="GOODS_NAME"/>
+		
+	</resultMap>
+	<!-- 根据id查询用户信息 -->
+	
+	<select id="getById" parameterType="java.lang.String" resultMap="pictureMap">
+		SELECT * FROM PICTURE WHERE ID= #{id}
+	
+	</select>
+	
+	
+	 <!-- 查询所有 查询部分信息（比如SELECT ID,NAME,AGE FROM..也可以使用resultMap）-->
+	<select id="getAll" parameterType="java.lang.String" resultMap="pictureMap">
+		SELECT * FROM PICTURE
+	</select>
+
+	
+	<!-- 添加用户 -->
+
+	 <insert id="add" parameterType="com.java.bean.Picture">
+		INSERT INTO PICTURE(ID,GOODS_ID,DO_PATH,GOODS_NAME) VALUES(#{id},#{goodsId},#{doPath},#{goodsName})
+	</insert>
+	
+	
+	
+	<!-- 删除用户  -->
+	<delete id="delete" parameterType="java.lang.String">
+	 DELETE FROM PICTURE WHERE ID=#{id}
+	</delete>
+	
+	
+	<!-- 修改用户
+	要求：传入的user对象中包括 id属性值
+	-->
+	<update id="update" parameterType="com.java.bean.Picture">
+		UPDATE PICTURE SET GOODS_ID=#{goodsId},DO_PATH=#{doPath},GOODS_NAME=#{goodsName} WHERE ID=#{id}
+	</update>
+	
+	
+	
+	<select id="getByGoodsId" parameterType="java.lang.String" resultMap="pictureMap">
+		SELECT * FROM PICTURE WHERE GOODS_ID= #{goodsId}
+	
+	</select>
+	
+
+</mapper>
